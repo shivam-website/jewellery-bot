@@ -21,14 +21,13 @@ from wtforms.validators import DataRequired, Length, NumberRange
 from config import Config
 from io import StringIO
 import csv
-from flask_migrate import Migrate
 
 # ---------------- App Setup ----------------
 app = Flask(__name__, static_folder="static", template_folder="templates")
 app.config.from_object(Config)
 
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+
 
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
@@ -389,3 +388,4 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
     app.run(debug=True)
+
