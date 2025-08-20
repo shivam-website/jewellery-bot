@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+
+<div class="toolbar">
+  <a class="btn" href="{{ url_for('admin_export_csv') }}">Export CSV</a>
+</div>
+
+<h3>Create New Shopkeeper</h3>
+<form method="post" action="{{ url_for('admin_create_shopkeeper') }}" style="margin-bottom:20px;">
+  <input type="text" name="shop_name" placeholder="Shop Name" required style="padding:8px; margin-right:10px;">
+  <input type="text" name="username" placeholder="Login ID" required style="padding:8px; margin-right:10px;">
+  <input type="password" name="password" placeholder="Password" required style="padding:8px; margin-right:10px;">
+  <button type="submit" class="btn">Create</button>
+</form>
+
+<h3>Shops</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Shop</th>
+      <th>Login ID</th>
+      <th>Password</th>
+      <th>Active</th>
+      <th>Items</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for s in shops %}
+    <tr>
+      <td>{{ s.shop_name }}</td>
+      <td>{{ s.username }}</td>
+      <td>{{ s.plain_password }}</td>
+      <td>{{ "Yes" if s.active else "No" }}</td>
+      <td>{{ s.jewelries|length }}</td>
+      <td>
+        {% if s.id != current_user.id %}
+        <a class="btn small" href="{{ url_for('admin_toggle_shop', user_id=s.id) }}">
+          {{ "Deactivate" if s.active else "Activate" }}
+        </a>
+        <a class="btn small danger" href="{{ url_for('admin_delete_shop', user_id=s.id) }}">Delete</a>
+        {% else %}-{% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h3>All Jewelry</h3>
+<table class="table">
+  <thead><tr><th>ID</th><th>Shop</th><th>Weight</th><th>Labor</th><th>Date</th><th>Action</th></tr></thead>
+  <tbody>
+    {% for it in items %}
+    <tr>
+      <td>{{ it.unique_id }}</td>
+      <td>{{ it.owner.shop_name }}</td>
+      <td>{{ "%.2f"|format(it.weight_g) }}</td>
+      <td>{{ "%.2f"|format(it.labor_cost) }}</td>
+      <td>{{ it.created_at.strftime("%Y-%m-%d %H:%M") }}</td>
+      <td><a class="btn small danger" href="{{ url_for('admin_delete_item', item_id=it.id) }}">Delete</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

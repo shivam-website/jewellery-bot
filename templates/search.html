@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Search by ID{% endblock %}
+{% block content %}
+<h2>Search Jewelry by ID</h2>
+<form method="post" class="form">
+  {{ form.hidden_tag() }}
+  <label>Jewelry ID {{ form.unique_id(size=24, placeholder="e.g., JW-AB12CD34") }}</label>
+  {{ form.submit(class_="btn") }}
+</form>
+
+{% if item %}
+  <div class="card">
+    <h3>Result</h3>
+    <p><strong>ID:</strong> {{ item.unique_id }}</p>
+    <p><strong>Weight:</strong> {{ "%.2f"|format(item.weight_g) }} g</p>
+    <p><strong>Labor:</strong> {{ "%.2f"|format(item.labor_cost) }}</p>
+    {% if rate %}
+      <p><strong>Today’s Gold Rate:</strong> {{ "%.2f"|format(rate) }} NPR/g</p>
+      <p><strong>Final Price:</strong> {{ "%.2f"|format(price) }} NPR</p>
+      <a class="btn" href="{{ url_for('invoice', uid=item.unique_id) }}" target="_blank">Open Invoice</a>
+    {% endif %}
+  </div>
+{% endif %}
+{% endblock %}

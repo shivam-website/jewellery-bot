@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Add Jewelry{% endblock %}
+{% block content %}
+<h2>Add Jewelry</h2>
+<form method="post" enctype="multipart/form-data" class="form">
+  {{ form.hidden_tag() }}
+  <label>Weight (grams) {{ form.weight_g(step="0.01") }}</label>
+  <label>Labor Cost {{ form.labor_cost(step="0.01") }}</label>
+  <label>Description {{ form.description(rows="3") }}</label>
+  <label>Photo (optional) <input type="file" name="photo" accept="image/*"></label>
+  {{ form.submit(class_="btn") }}
+</form>
+{% endblock %}

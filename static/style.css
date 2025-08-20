@@ -1,0 +1,251 @@
+:root {
+    --bg: #0b0d10;
+    --card: #12151a;
+    --text: #f2f5f8;
+    --muted: #96a0aa;
+    --accent: #14b8a6;
+    --danger: #e11d48;
+    --border: #1f242b;
+
+    /* Invoice overrides */
+    --invoice-bg: #fff;
+    --invoice-text: #000;
+}
+
+/* Global resets and box-sizing */
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu; }
+
+/* Main containers for layout */
+.container { 
+    max-width: 1000px; 
+    margin: 24px auto; 
+    padding: 0 16px; 
+}
+.footer { 
+    text-align: center; 
+    color: var(--muted); 
+    padding: 24px; 
+    border-top: 1px solid var(--border); 
+    margin-top: 40px; 
+}
+
+/* Navbar */
+.navbar { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 12px 20px; 
+    border-bottom: 1px solid var(--border); 
+    position: sticky; 
+    top: 0; 
+    background: rgba(11,13,16,.8); 
+    backdrop-filter: blur(8px); 
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+}
+.navbar a { 
+    color: var(--text); 
+    text-decoration: none; 
+    margin-left: 12px; 
+}
+.brand a { 
+    font-weight: 700; 
+    letter-spacing: .5px; 
+}
+
+/* Hero & CTA */
+.hero { 
+    background: linear-gradient(180deg, rgba(20,184,166,.08), transparent); 
+    border: 1px solid var(--border); 
+    padding: 32px; 
+    border-radius: 16px; 
+}
+.cta .btn { 
+    margin-right: 12px; 
+    margin-bottom: 8px; /* Added for better mobile stacking */
+}
+
+/* Buttons */
+.btn { 
+    display: inline-block; 
+    padding: 10px 16px; 
+    background: var(--accent); 
+    color: #001010; 
+    border: none; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    text-decoration: none; 
+    font-weight: 600; 
+}
+.btn.outline { 
+    background: transparent; 
+    color: var(--text); 
+    border: 1px solid var(--accent); 
+}
+.btn.small { 
+    padding: 6px 10px; 
+    font-size: 14px; 
+}
+.btn.danger { 
+    background: var(--danger); 
+    color: #fff; 
+}
+
+/* Forms */
+.form { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; 
+    background: var(--card); 
+    padding: 16px; 
+    border: 1px solid var(--border); 
+    border-radius: 12px; 
+}
+.form input, .form textarea { 
+    width: 100%; 
+    padding: 10px; 
+    border-radius: 8px; 
+    border: 1px solid var(--border); 
+    background: #0d1116; 
+    color: var(--text); 
+}
+.form label { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 6px; 
+    color: var(--muted); 
+}
+
+/* Tables */
+.table-wrapper {
+    overflow-x: auto; /* Added a wrapper for responsive tables */
+}
+.table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    background: var(--card); 
+    border: 1px solid var(--border); 
+    border-radius: 12px; 
+    overflow: hidden; 
+    white-space: nowrap; /* Prevents text from wrapping inside cells */
+}
+.table th, .table td { 
+    padding: 10px; 
+    border-bottom: 1px solid var(--border); 
+    text-align: left; 
+}
+.table thead { 
+    background: #0f1318; 
+}
+
+/* Toolbar & flash messages */
+.toolbar { 
+    display: flex; 
+    gap: 12px; 
+    margin-bottom: 16px; 
+    flex-wrap: wrap;
+}
+.flashbox { 
+    margin-bottom: 16px; 
+}
+.flash { 
+    padding: 10px; 
+    border-radius: 8px; 
+    margin-bottom: 8px; 
+    background: #0f1318; 
+    border: 1px solid var(--border); 
+}
+.flash.success { 
+    border-color: #14532d; 
+}
+.flash.danger { 
+    border-color: #7f1d1d; 
+}
+.flash.info { 
+    border-color: #1e3a8a; 
+}
+.flash.warning { 
+    border-color: #854d0e; 
+}
+
+/* Cards & thumbnails */
+.card { 
+    background: var(--card); 
+    border: 1px solid var(--border); 
+    border-radius: 12px; 
+    padding: 16px; 
+}
+.thumb { 
+    width: 60px; 
+    height: 60px; 
+    object-fit: cover; 
+    border-radius: 8px; 
+    border: 1px solid var(--border); 
+}
+
+/* Invoice specific */
+.invoice-container {
+    background: var(--invoice-bg);
+    color: var(--invoice-text);
+    padding: 24px;
+    border-radius: 12px;
+    max-width: 800px;
+    margin: 40px auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.invoice-container h1,
+.invoice-container h2,
+.invoice-container p,
+.invoice-container span,
+.invoice-container td {
+    color: var(--invoice-text);
+}
+
+/*
+    Responsive styles using media queries
+    -----------------------------------
+*/
+
+/* Mobile devices (phones) */
+@media (max-width: 768px) {
+    /* Adjust global container padding for better spacing */
+    .container {
+        padding: 0 12px;
+    }
+
+    /* Stack navbar items on top of each other */
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 12px;
+    }
+
+    /* Adjust navbar links on mobile */
+    .navbar .brand {
+        margin-bottom: 8px;
+    }
+    .navbar .brand a {
+        margin-left: 0;
+    }
+    .navbar a {
+        margin: 4px 0;
+    }
+    
+    /* Make the hero section padding a bit smaller for tight screens */
+    .hero {
+        padding: 24px;
+    }
+
+    /* Stack toolbar items vertically */
+    .toolbar {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    /* Adjust button margins for better stacking on mobile */
+    .cta .btn {
+        margin-right: 0;
+        width: 100%;
+        text-align: center;
+    }
+}
